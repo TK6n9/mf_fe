@@ -1,0 +1,290 @@
+
+.image-container1 {
+  position: relative;
+  width: 146px;
+  height: 518px;
+  background-image: url("/public/111.jpg");
+  background-size: cover;
+  border-radius: 15px;
+  transition: width 1s ease;
+  z-index: 0;
+  opacity: 1;
+  transition-duration: .3s;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 15px;
+}
+.image-container2 {
+  position: relative;
+  width: 146px;
+  height: 518px;
+  background-image: url("/public/222.jpg");
+  background-size: cover;
+  border-radius: 15px;
+  transition: width 1s ease;
+  z-index: 0;
+  opacity: 1;
+  transition-duration: .3s;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 15px;
+}
+.image-container3 {
+  position: relative;
+  width: 146px;
+  height: 518px;
+  background-image: url("/public/333.jpg");
+  background-size: cover;
+  border-radius: 15px;
+  transition: width 1s ease;
+  z-index: 0;
+  opacity: 1;
+  transition-duration: .3s;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 15px;
+}
+.image-container4 {
+  position: relative;
+  width: 146px;
+  height: 518px;
+  background-image: url("/public/444.jpg");
+  background-size: cover;
+  border-radius: 15px;
+  transition: width 1s ease;
+  z-index: 0;
+  opacity: 1;
+  transition-duration: .3s;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.image-container1::before {
+  content: '';  /* Add this line */
+  position: absolute;  /* Add this line */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  transition: background-color 1s ease;
+  z-index: -1;  /* Add this line */
+}
+.image-container1.hover::before {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.image-container1.hover {
+  width: 867px;
+  height: 518px;
+  opacity: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.image-container2::before {
+  content: '';  /* Add this line */
+  position: absolute;  /* Add this line */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  transition: background-color 1s ease;
+  z-index: -1;  
+}
+.image-container2.hover::before {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.image-container2.hover {
+  width: 867px;
+  height: 518px;
+  opacity: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.image-container3::before {
+  content: '';  
+  position: absolute; 
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  transition: background-color 1s ease;
+  z-index: -1;  /* Add this line */
+}
+.image-container3.hover::before {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.image-container3.hover {
+  width: 867px;
+  height: 518px;
+  opacity: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.image-container4::before {
+  content: '';  /* Add this line */
+  position: absolute;  /* Add this line */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  transition: background-color 1s ease;
+  z-index: -1;  /* Add this line */
+}
+.image-container4.hover::before {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.image-container4.hover {
+  width: 867px;
+  height: 518px;
+  opacity: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+/* 
+@media (max-width: 1024px) {
+  .image-container1, 
+  .image-container2, 
+  .image-container3, 
+  .image-container4 {
+    width: 867px;
+    height: 518px;
+    opacity: 1;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .image-container1::before, 
+  .image-container2::before, 
+  .image-container3::before, 
+  .image-container4::before {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+ */
+ .min-image-container1{
+  position: relative;
+  width: 100%;
+  min-height: 250px;
+  background-image: url("/public/111.jpg");
+  background-size: cover;
+  border-radius: 15px;
+  transition: width 1s ease;
+  z-index: 0;
+  opacity: 1;
+  transition-duration: .3s;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 24px;
+}
+.min-image-container2{
+  position: relative;
+  width: 100%;
+  min-height: 250px;
+  background-image: url("/public/222.jpg");
+  background-size: cover;
+  border-radius: 15px;
+  transition: width 1s ease;
+  z-index: 0;
+  opacity: 1;
+  transition-duration: .3s;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 24px;
+  background-color: rgba(0, 0, 0, 0.7);
+
+}
+.min-image-container3{
+  position: relative;
+  width: 100%;
+  min-height: 250px;
+  background-image: url("/public/333.jpg");
+  background-size: cover;
+  border-radius: 15px;
+  transition: width 1s ease;
+  z-index: 0;
+  opacity: 1;
+  transition-duration: .3s;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 24px;
+  background-color: rgba(0, 0, 0, 0.7);
+
+}
+.min-image-container4{
+  position: relative;
+  width: 100%;
+  min-height: 250px;
+  background-image: url("/public/444.jpg");
+  background-size: cover;
+  border-radius: 15px;
+  transition: width 1s ease;
+  z-index: 0;
+  opacity: 1;
+  transition-duration: .3s;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 24px;
+  background-color: rgba(0, 0, 0, 0.7);
+
+}
+
+.min-image-container1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  z-index: -1;
+}
+
+.min-image-container2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  z-index: -1;
+}
+
+.min-image-container3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  z-index: -1;
+}
+
+.min-image-container4::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  z-index: -1;
+}
