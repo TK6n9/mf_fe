@@ -55,7 +55,7 @@ function Board() {
   const fetchData = async (sortQuery) => {
     try {
       const response = await axios.get(
-        `http://3.34.127.164/posts?page=${currentPage}&pageSize=${pageSize}&sort=${sortQuery}`,
+        `https://3.34.127.164/posts?page=${currentPage}&pageSize=${pageSize}&sort=${sortQuery}`,
         {
           withCredentials: true,
         }

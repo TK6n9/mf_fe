@@ -24,9 +24,13 @@ function Join() {
       password,
     };
     try {
-      const respone = await axios.post("http://3.34.127.164/user/login", data, {
-        withCredentials: true,
-      });
+      const respone = await axios.post(
+        "https://3.34.127.164/user/login",
+        data,
+        {
+          withCredentials: true,
+        }
+      );
       if (respone.status === 200) {
         const userId = respone.data.user.id;
         console.log("🚀__respone.data.user", respone.data.user);

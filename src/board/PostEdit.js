@@ -24,7 +24,7 @@ function PostEdit() {
   const [imagePreview, setImagePreview] = useState(null);
   const fetchPost = async () => {
     try {
-      const response = await axios.get(`http://3.34.127.164/post/${postId}`, {
+      const response = await axios.get(`https://3.34.127.164/post/${postId}`, {
         withCredentials: true,
       });
       setPost(response.data);
@@ -72,7 +72,7 @@ function PostEdit() {
         formData.append("img", selectedFile);
       }
 
-      await axios.put(`http://3.34.127.164/post/${postId}`, formData, {
+      await axios.put(`https://3.34.127.164/post/${postId}`, formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",

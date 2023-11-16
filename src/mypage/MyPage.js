@@ -24,7 +24,7 @@ function MyPage() {
     const userId = userDataState?.id;
     try {
       const response = await axios.get(
-        `http://3.34.127.164/post/mypage/${userId}`,
+        `https://3.34.127.164/post/mypage/${userId}`,
         {
           withCredentials: true,
         }
@@ -41,13 +41,13 @@ function MyPage() {
   const myFollowing = async (userId) => {
     try {
       const followersResponse = await axios.get(
-        `http://3.34.127.164/auth/myFollowers?userId=${userId}`,
+        `https://3.34.127.164/auth/myFollowers?userId=${userId}`,
         { withCredentials: true }
       );
       const followers = followersResponse.data.followers;
 
       const followingResponse = await axios.get(
-        `http://3.34.127.164/auth/myFollowing?userId=${userId}`,
+        `https://3.34.127.164/auth/myFollowing?userId=${userId}`,
         { withCredentials: true }
       );
       const following = followingResponse.data.following;

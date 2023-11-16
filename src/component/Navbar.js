@@ -14,7 +14,7 @@ const Navbar = () => {
 
   async function fetchData() {
     try {
-      const response = await axios.get("http://3.34.127.164/", {
+      const response = await axios.get("https://3.34.127.164/", {
         withCredentials: true,
       });
       console.log("🚀__setUserData", response.data);
@@ -57,7 +57,7 @@ const Navbar = () => {
   }, [texts.length]);
   const handleLogout = async () => {
     try {
-      const response = await axios.get("http://3.34.127.164/auth/logout", {
+      const response = await axios.get("https://3.34.127.164/auth/logout", {
         withCredentials: true,
       });
 

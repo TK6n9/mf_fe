@@ -21,7 +21,7 @@ function ChatRoom({ roomId }) {
 
   useEffect(() => {
     axios
-      .get(`http://3.34.127.164/server/room/${roomId}`, {
+      .get(`https://3.34.127.164/server/room/${roomId}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -48,7 +48,7 @@ function ChatRoom({ roomId }) {
     if (message.trim()) {
       try {
         const response = await axios.post(
-          `http://3.34.127.164/server/room/${roomId}/chat`,
+          `https://3.34.127.164/server/room/${roomId}/chat`,
           {
             chat: message,
           },

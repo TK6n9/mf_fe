@@ -30,7 +30,7 @@ function PostDetail() {
   const toast = useToast();
   const fetchPost = async () => {
     try {
-      const req = await axios.get(`http://3.34.127.164/post/${postId}`, {
+      const req = await axios.get(`https://3.34.127.164/post/${postId}`, {
         withCredentials: true,
       });
       setPost(req.data);
@@ -41,7 +41,7 @@ function PostDetail() {
 
   const deletePost = async () => {
     try {
-      await axios.delete(`http://3.34.127.164/post/${postId}`, {
+      await axios.delete(`https://3.34.127.164/post/${postId}`, {
         withCredentials: true,
       });
       toast({
@@ -70,7 +70,7 @@ function PostDetail() {
   const fetchComments = async () => {
     try {
       const req = await axios.get(
-        `http://3.34.127.164/post/comments/${postId}`,
+        `https://3.34.127.164/post/comments/${postId}`,
         {
           withCredentials: true,
         }
@@ -88,7 +88,7 @@ function PostDetail() {
   const fetchLikeCount = async () => {
     try {
       const response = await axios.get(
-        `http://3.34.127.164/post/${postId}/likeCount`,
+        `https://3.34.127.164/post/${postId}/likeCount`,
         { withCredentials: true }
       );
 
@@ -102,7 +102,7 @@ function PostDetail() {
     setPop(true);
     try {
       const response = await axios.post(
-        `http://3.34.127.164/post/${postId}/like`,
+        `https://3.34.127.164/post/${postId}/like`,
         {
           isLiked: !isFilled,
         },
@@ -121,7 +121,7 @@ function PostDetail() {
   const checkIfLiked = async () => {
     try {
       const response = await axios.get(
-        `http://3.34.127.164/post/${postId}/check-like`,
+        `https://3.34.127.164/post/${postId}/check-like`,
         {
           withCredentials: true,
         }
@@ -139,7 +139,7 @@ function PostDetail() {
 
     try {
       const response = await axios.post(
-        `http://3.34.127.164/auth/follow`,
+        `https://3.34.127.164/auth/follow`,
         {
           followerId,
           followingId,
@@ -162,13 +162,16 @@ function PostDetail() {
     const followingId = post?.UserId; // 팔로우 해제 받는 사람의 ID
 
     try {
-      const response = await axios.delete(`http://3.34.127.164/auth/unfollow`, {
-        data: {
-          followerId,
-          followingId,
-        },
-        withCredentials: true,
-      });
+      const response = await axios.delete(
+        `https://3.34.127.164/auth/unfollow`,
+        {
+          data: {
+            followerId,
+            followingId,
+          },
+          withCredentials: true,
+        }
+      );
 
       if (response.status === 200) {
         alert("언팔로우 성공!");
@@ -182,13 +185,16 @@ function PostDetail() {
   const [followChecker, setFollowChecker] = useState(null);
   const checkFollowStatus = async () => {
     try {
-      const response = await axios.get(`http://3.34.127.164/auth/isFollowing`, {
-        params: {
-          followerId: userDataState?.id, // 현재 로그인한 사용자의 ID
-          followingId: post?.UserId, // 프로필 주인의 ID
-        },
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `https://3.34.127.164/auth/isFollowing`,
+        {
+          params: {
+            followerId: userDataState?.id, // 현재 로그인한 사용자의 ID
+            followingId: post?.UserId, // 프로필 주인의 ID
+          },
+          withCredentials: true,
+        }
+      );
       if (response.status === 200) {
         if (response.data.following) {
           setFollowChecker(response.data.following);
@@ -254,7 +260,7 @@ function PostDetail() {
           <Flex direction="column" align="center">
             {post.img && (
               <Image
-                src={`http://3.34.127.164/uploads/${post.img}`}
+                src={`https://3.34.127.164/uploads/${post.img}`}
                 alt="description"
               />
             )}
