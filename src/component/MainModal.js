@@ -32,7 +32,7 @@ function MainModal() {
 
     try {
       const req = await axios.post(
-        "https://3.34.127.164/auth/join",
+        "https://34.64.161.131/auth/join",
         {
           userNameState,
           passwordState,
@@ -61,7 +61,7 @@ function MainModal() {
       password: loginPassword,
     };
     try {
-      const req = await axios.post("https://3.34.127.164/auth/login", data, {
+      const req = await axios.post("https://34.64.161.131/auth/login", data, {
         withCredentials: true,
       });
       console.log("#__로그인성공", req);

@@ -23,7 +23,7 @@ function Comments({ post, comments, refreshComments }) {
       PostId: post.id,
     };
     try {
-      await axios.post("https://3.34.127.164/post/comment", data, {
+      await axios.post("https://34.64.161.131/post/comment", data, {
         withCredentials: true,
       });
       setReply("");
@@ -44,7 +44,7 @@ function Comments({ post, comments, refreshComments }) {
         withCredentials: true,
       };
       await axios.delete(
-        `https://3.34.127.164/post/comment/${commentId}`,
+        `https://34.64.161.131/post/comment/${commentId}`,
         config
       );
       refreshComments();

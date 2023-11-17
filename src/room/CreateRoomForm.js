@@ -25,7 +25,7 @@ function CreateRoomForm() {
     e.preventDefault();
     try {
       await axios.post(
-        "https://3.34.127.164/server/room",
+        "https://34.64.161.131/server/room",
         { title, max, owner, password },
         {
           withCredentials: true,

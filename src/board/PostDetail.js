@@ -30,7 +30,7 @@ function PostDetail() {
   const toast = useToast();
   const fetchPost = async () => {
     try {
-      const req = await axios.get(`https://3.34.127.164/post/${postId}`, {
+      const req = await axios.get(`https://34.64.161.131/post/${postId}`, {
         withCredentials: true,
       });
       setPost(req.data);
@@ -41,7 +41,7 @@ function PostDetail() {
 
   const deletePost = async () => {
     try {
-      await axios.delete(`https://3.34.127.164/post/${postId}`, {
+      await axios.delete(`https://34.64.161.131/post/${postId}`, {
         withCredentials: true,
       });
       toast({
@@ -70,7 +70,7 @@ function PostDetail() {
   const fetchComments = async () => {
     try {
       const req = await axios.get(
-        `https://3.34.127.164/post/comments/${postId}`,
+        `https://34.64.161.131/post/comments/${postId}`,
         {
           withCredentials: true,
         }
@@ -88,7 +88,7 @@ function PostDetail() {
   const fetchLikeCount = async () => {
     try {
       const response = await axios.get(
-        `https://3.34.127.164/post/${postId}/likeCount`,
+        `https://34.64.161.131/post/${postId}/likeCount`,
         { withCredentials: true }
       );
 
@@ -102,7 +102,7 @@ function PostDetail() {
     setPop(true);
     try {
       const response = await axios.post(
-        `https://3.34.127.164/post/${postId}/like`,
+        `https://34.64.161.131/post/${postId}/like`,
         {
           isLiked: !isFilled,
         },
@@ -121,7 +121,7 @@ function PostDetail() {
   const checkIfLiked = async () => {
     try {
       const response = await axios.get(
-        `https://3.34.127.164/post/${postId}/check-like`,
+        `https://34.64.161.131/post/${postId}/check-like`,
         {
           withCredentials: true,
         }
@@ -139,7 +139,7 @@ function PostDetail() {
 
     try {
       const response = await axios.post(
-        `https://3.34.127.164/auth/follow`,
+        `https://34.64.161.131/auth/follow`,
         {
           followerId,
           followingId,
@@ -163,7 +163,7 @@ function PostDetail() {
 
     try {
       const response = await axios.delete(
-        `https://3.34.127.164/auth/unfollow`,
+        `https://34.64.161.131/auth/unfollow`,
         {
           data: {
             followerId,
@@ -186,7 +186,7 @@ function PostDetail() {
   const checkFollowStatus = async () => {
     try {
       const response = await axios.get(
-        `https://3.34.127.164/auth/isFollowing`,
+        `https://34.64.161.131/auth/isFollowing`,
         {
           params: {
             followerId: userDataState?.id, // 현재 로그인한 사용자의 ID
@@ -260,7 +260,7 @@ function PostDetail() {
           <Flex direction="column" align="center">
             {post.img && (
               <Image
-                src={`https://3.34.127.164/uploads/${post.img}`}
+                src={`https://34.64.161.131/uploads/${post.img}`}
                 alt="description"
               />
             )}

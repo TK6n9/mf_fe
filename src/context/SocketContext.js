@@ -16,7 +16,7 @@ export const SocketProvider = ({ children }) => {
       socket.disconnect();
     }
 
-    const newSocket = io("https://3.34.127.164", {
+    const newSocket = io("https://34.64.161.131", {
       path: "/socket.io", // if your server serves Socket.IO on a different path
       transports: ["websocket", "polling"], // specify transports
       reconnection: true,

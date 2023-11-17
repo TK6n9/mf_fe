@@ -25,7 +25,7 @@ function Join() {
     };
     try {
       const respone = await axios.post(
-        "https://3.34.127.164/user/login",
+        "https://34.64.161.131/user/login",
         data,
         {
           withCredentials: true,

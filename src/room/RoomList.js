@@ -23,7 +23,7 @@ function RoomList() {
   const [selectedRoomId, setSelectedRoomId] = useState(null);
   useEffect(() => {
     axios
-      .get("https://3.34.127.164/server", { withCredentials: true })
+      .get("https://34.64.161.131/server", { withCredentials: true })
       .then((response) => {
         console.log("🚀__response.data.rooms", response.data.rooms);
         setRooms(response.data.rooms);

@@ -46,7 +46,7 @@ function WritePost() {
       console.error("No file selected.");
     }
     try {
-      const req = await axios.post("https://3.34.127.164/post/", formData, {
+      const req = await axios.post("https://34.64.161.131/post/", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data", // This is important for multer to work
