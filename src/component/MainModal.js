@@ -32,7 +32,7 @@ function MainModal() {
 
     try {
       const req = await axios.post(
-        "https://34.64.161.131/auth/join",
+        `${process.env.REACT_APP_LOCAL_PORT}/auth/join`,
         {
           userNameState,
           passwordState,
@@ -61,12 +61,17 @@ function MainModal() {
       password: loginPassword,
     };
     try {
-      const req = await axios.post("https://34.64.161.131/auth/login", data, {
-        withCredentials: true,
-      });
+      const req = await axios.post(
+        `${process.env.REACT_APP_LOCAL_PORT}/auth/login`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
       console.log("#__로그인성공", req);
       if (req.status === 200) {
         setIsModalOpen(false);
+        window.location.reload();
       }
     } catch (error) {
       console.log("#__로그인버튼고장남", error);

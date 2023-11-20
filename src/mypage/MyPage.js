@@ -24,7 +24,7 @@ function MyPage() {
     const userId = userDataState?.id;
     try {
       const response = await axios.get(
-        `https://34.64.161.131/post/mypage/${userId}`,
+        `${process.env.REACT_APP_LOCAL_PORT}/post/mypage/${userId}`,
         {
           withCredentials: true,
         }
@@ -41,13 +41,13 @@ function MyPage() {
   const myFollowing = async (userId) => {
     try {
       const followersResponse = await axios.get(
-        `https://34.64.161.131/auth/myFollowers?userId=${userId}`,
+        `${process.env.REACT_APP_LOCAL_PORT}/auth/myFollowers?userId=${userId}`,
         { withCredentials: true }
       );
       const followers = followersResponse.data.followers;
 
       const followingResponse = await axios.get(
-        `https://34.64.161.131/auth/myFollowing?userId=${userId}`,
+        `${process.env.REACT_APP_LOCAL_PORT}/auth/myFollowing?userId=${userId}`,
         { withCredentials: true }
       );
       const following = followingResponse.data.following;

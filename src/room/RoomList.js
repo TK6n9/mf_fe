@@ -21,25 +21,31 @@ function RoomList() {
   const [rooms, setRooms] = useState([]);
   const [roomMakeCnt, setRoomMakeCnt] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState(null);
+
   useEffect(() => {
     axios
-      .get("https://34.64.161.131/server", { withCredentials: true })
+      .get(`${process.env.REACT_APP_LOCAL_PORT}/server`, {
+        withCredentials: true,
+      })
       .then((response) => {
         console.log("🚀__response.data.rooms", response.data.rooms);
         setRooms(response.data.rooms);
       })
       .catch((error) => console.error("Error fetching rooms:", error));
-  }, [ChatCntState]);
+  }, [ChatCntState, ChatCnt]);
 
   const handleRoomClick = (roomId) => {
     console.log("#__roomId", roomId);
-
     setSelectedRoomId(roomId);
+  };
+  const getSelectedRoomDetails = () => {
+    return rooms.find((room) => room.id === selectedRoomId);
   };
   useEffect(() => {
     setRoomMakeCnt(false);
   }, [rooms.length]);
 
+  console.log("🚀__rooms", rooms);
   return (
     <>
       <Box p={5} shadow="md" borderWidth="1px">
@@ -81,7 +87,12 @@ function RoomList() {
         </Flex>
       </Box>
       {roomMakeCnt && <CreateRoomForm />}
-      {selectedRoomId && <ChatRoom roomId={selectedRoomId} />}
+      {selectedRoomId && (
+        <ChatRoom
+          roomId={selectedRoomId}
+          roomDetails={getSelectedRoomDetails()}
+        />
+      )}
     </>
   );
 }

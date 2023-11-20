@@ -14,7 +14,7 @@ const Navbar = () => {
 
   async function fetchData() {
     try {
-      const response = await axios.get("https://34.64.161.131/", {
+      const response = await axios.get(`${process.env.REACT_APP_LOCAL_PORT}/`, {
         withCredentials: true,
       });
       console.log("🚀__setUserData", response.data);
@@ -57,9 +57,12 @@ const Navbar = () => {
   }, [texts.length]);
   const handleLogout = async () => {
     try {
-      const response = await axios.get("https://34.64.161.131/auth/logout", {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_LOCAL_PORT}/auth/logout`,
+        {
+          withCredentials: true,
+        }
+      );
 
       navigate("/");
       window.location.reload();

@@ -22,10 +22,15 @@ function Comments({ post, comments, refreshComments }) {
       UserId: userDataState.userName,
       PostId: post.id,
     };
+
     try {
-      await axios.post("https://34.64.161.131/post/comment", data, {
-        withCredentials: true,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_LOCAL_PORT}/post/comment`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
       setReply("");
       refreshComments();
     } catch (error) {
@@ -40,11 +45,11 @@ function Comments({ post, comments, refreshComments }) {
 
     try {
       const config = {
-        data: data, // Include data within the config object
+        data: data,
         withCredentials: true,
       };
       await axios.delete(
-        `https://34.64.161.131/post/comment/${commentId}`,
+        `${process.env.REACT_APP_LOCAL_PORT}/post/comment/${commentId}`,
         config
       );
       refreshComments();

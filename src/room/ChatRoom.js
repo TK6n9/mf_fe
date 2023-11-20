@@ -12,16 +12,41 @@ import React, { useEffect, useState } from "react";
 
 import { useSocket } from "../context/SocketContext";
 
-function ChatRoom({ roomId }) {
+function ChatRoom({ roomId, roomDetails }) {
   const [chats, setChats] = useState([]);
   const [message, setMessage] = useState("");
 
   const toast = useToast();
   const socket = useSocket();
 
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_LOCAL_PORT}/server/room/${roomId}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((response) => {
+  //       setChats(response.data.chats);
+  //     })
+  //     .catch((error) =>
+  //       toast({
+  //         title: "Error loading chats",
+  //         description: error.toString(),
+  //         status: "error",
+  //         duration: 5000,
+  //         isClosable: true,
+  //       })
+  //     );
+  //   const handleNewChat = (newChat) => {
+  //     if (newChat.roomId === roomId) {
+  //       setChats((prevChats) => [...prevChats, newChat]);
+  //     }
+  //   };
+  //   socket.on("testChat", handleNewChat);
+  //   return () => socket.off("testChat", handleNewChat);
+  // }, [roomId, socket]);
   useEffect(() => {
     axios
-      .get(`https://34.64.161.131/server/room/${roomId}`, {
+      .get(`${process.env.REACT_APP_LOCAL_PORT}/server/room/${roomId}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -37,18 +62,21 @@ function ChatRoom({ roomId }) {
         })
       );
 
-    socket.on("chat", (newChat) => {
-      setChats((prevChats) => [...prevChats, newChat]);
-    });
+    const handleNewChat = (newChat) => {
+      if (newChat.roomId === roomId) {
+        setChats((prevChats) => [...prevChats, newChat]);
+      }
+    };
 
-    return () => socket.off("chat");
-  }, [roomId, socket, toast]);
+    socket.on("chat", handleNewChat);
+    return () => socket.off("chat", handleNewChat);
+  }, [roomId, socket]);
 
   const sendMessage = async () => {
     if (message.trim()) {
       try {
         const response = await axios.post(
-          `https://34.64.161.131/server/room/${roomId}/chat`,
+          `${process.env.REACT_APP_LOCAL_PORT}/server/room/${roomId}/chat`,
           {
             chat: message,
           },
@@ -77,7 +105,13 @@ function ChatRoom({ roomId }) {
       maxHeight="400px"
     >
       <VStack spacing={4}>
-        <Text fontSize="2xl">Chat Room</Text>
+        <Text fontSize="2xl" fontFamily={"Pretendard"}>
+          {roomDetails.title} Chat Room
+        </Text>
+        <Text fontSize="xl" fontFamily={"Pretendard"}>
+          빵장 : {roomDetails.owner}
+        </Text>
+
         <VStack spacing={3} width="100%" alignItems="flex-start">
           {chats?.map((chat, index) => (
             <Box key={index} p={3} bg="gray.100" borderRadius="md" width="100%">

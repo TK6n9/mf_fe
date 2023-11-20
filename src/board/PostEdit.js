@@ -24,9 +24,12 @@ function PostEdit() {
   const [imagePreview, setImagePreview] = useState(null);
   const fetchPost = async () => {
     try {
-      const response = await axios.get(`https://34.64.161.131/post/${postId}`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_LOCAL_PORT}/post/${postId}`,
+        {
+          withCredentials: true,
+        }
+      );
       setPost(response.data);
     } catch (error) {
       console.error("Error fetching post: ", error);
@@ -72,12 +75,16 @@ function PostEdit() {
         formData.append("img", selectedFile);
       }
 
-      await axios.put(`https://34.64.161.131/post/${postId}`, formData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await axios.put(
+        `${process.env.REACT_APP_LOCAL_PORT}/post/${postId}`,
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       toast({
         title: "성공적 수정 ",

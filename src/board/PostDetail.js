@@ -30,18 +30,24 @@ function PostDetail() {
   const toast = useToast();
   const fetchPost = async () => {
     try {
-      const req = await axios.get(`https://34.64.161.131/post/${postId}`, {
-        withCredentials: true,
-      });
+      const req = await axios.get(
+        `${process.env.REACT_APP_LOCAL_PORT}/post/${postId}`,
+        {
+          withCredentials: true,
+        }
+      );
       setPost(req.data);
+      console.log("#__req.data", req.data);
     } catch (error) {
       console.error("게시물을 불러오는 중 에러 발생:", error);
     }
   };
 
   const deletePost = async () => {
+    console.log("#__dd", `${process.env.REACT_APP_LOCAL_PORT}/post/${postId}`);
+
     try {
-      await axios.delete(`https://34.64.161.131/post/${postId}`, {
+      await axios.delete(`${process.env.REACT_APP_LOCAL_PORT}/post/${postId}`, {
         withCredentials: true,
       });
       toast({
@@ -51,7 +57,7 @@ function PostDetail() {
         duration: 9000,
         isClosable: true,
       });
-      navigate("/board"); // 혹은 다른 경로로 이동
+      navigate("/board");
     } catch (error) {
       console.error("게시물 삭제 중 에러 발생: ", error);
       toast({
@@ -70,7 +76,7 @@ function PostDetail() {
   const fetchComments = async () => {
     try {
       const req = await axios.get(
-        `https://34.64.161.131/post/comments/${postId}`,
+        `${process.env.REACT_APP_LOCAL_PORT}/post/comments/${postId}`,
         {
           withCredentials: true,
         }
@@ -88,7 +94,7 @@ function PostDetail() {
   const fetchLikeCount = async () => {
     try {
       const response = await axios.get(
-        `https://34.64.161.131/post/${postId}/likeCount`,
+        `${process.env.REACT_APP_LOCAL_PORT}/post/${postId}/likeCount`,
         { withCredentials: true }
       );
 
@@ -102,7 +108,7 @@ function PostDetail() {
     setPop(true);
     try {
       const response = await axios.post(
-        `https://34.64.161.131/post/${postId}/like`,
+        `${process.env.REACT_APP_LOCAL_PORT}/post/${postId}/like`,
         {
           isLiked: !isFilled,
         },
@@ -121,7 +127,7 @@ function PostDetail() {
   const checkIfLiked = async () => {
     try {
       const response = await axios.get(
-        `https://34.64.161.131/post/${postId}/check-like`,
+        `${process.env.REACT_APP_LOCAL_PORT}/post/${postId}/check-like`,
         {
           withCredentials: true,
         }
@@ -139,7 +145,7 @@ function PostDetail() {
 
     try {
       const response = await axios.post(
-        `https://34.64.161.131/auth/follow`,
+        `${process.env.REACT_APP_LOCAL_PORT}/auth/follow`,
         {
           followerId,
           followingId,
@@ -163,7 +169,7 @@ function PostDetail() {
 
     try {
       const response = await axios.delete(
-        `https://34.64.161.131/auth/unfollow`,
+        `${process.env.REACT_APP_LOCAL_PORT}/auth/unfollow`,
         {
           data: {
             followerId,
@@ -186,7 +192,7 @@ function PostDetail() {
   const checkFollowStatus = async () => {
     try {
       const response = await axios.get(
-        `https://34.64.161.131/auth/isFollowing`,
+        `${process.env.REACT_APP_LOCAL_PORT}/auth/isFollowing`,
         {
           params: {
             followerId: userDataState?.id, // 현재 로그인한 사용자의 ID
@@ -260,7 +266,7 @@ function PostDetail() {
           <Flex direction="column" align="center">
             {post.img && (
               <Image
-                src={`https://34.64.161.131/uploads/${post.img}`}
+                src={`${process.env.REACT_APP_LOCAL_PORT}/uploads/${post.img}`}
                 alt="description"
               />
             )}
