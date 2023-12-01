@@ -15,6 +15,7 @@ import { useRecoilState } from "recoil";
 import { ChatCnt } from "../atom/atom";
 import ChatRoom from "./ChatRoom";
 import CreateRoomForm from "./CreateRoomForm";
+
 function RoomList() {
   const [ChatCntState, setChatCnt] = useRecoilState(ChatCnt);
   const navigate = useNavigate();
@@ -28,14 +29,12 @@ function RoomList() {
         withCredentials: true,
       })
       .then((response) => {
-        console.log("🚀__response.data.rooms", response.data.rooms);
         setRooms(response.data.rooms);
       })
-      .catch((error) => console.error("Error fetching rooms:", error));
+      .catch((error) => console.error(error));
   }, [ChatCntState, ChatCnt]);
 
   const handleRoomClick = (roomId) => {
-    console.log("#__roomId", roomId);
     setSelectedRoomId(roomId);
   };
   const getSelectedRoomDetails = () => {
@@ -45,7 +44,6 @@ function RoomList() {
     setRoomMakeCnt(false);
   }, [rooms.length]);
 
-  console.log("🚀__rooms", rooms);
   return (
     <>
       <Box p={5} shadow="md" borderWidth="1px">
@@ -66,7 +64,6 @@ function RoomList() {
                   >
                     {room.title}
                   </Text>
-
                   <Divider my={2} />
                 </ListItem>
               ))}

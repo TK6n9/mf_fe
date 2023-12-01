@@ -52,7 +52,7 @@ function WritePost() {
         {
           withCredentials: true,
           headers: {
-            "Content-Type": "multipart/form-data", // This is important for multer to work
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -61,11 +61,10 @@ function WritePost() {
         console.log(key, value);
       }
       if (req.status === 201) {
-        console.log("#__성공");
         navigate("/board");
       }
     } catch (error) {
-      console.log("#__실패", error);
+      console.error(error);
     }
   };
   const fileInputRef = useRef();

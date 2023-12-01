@@ -17,13 +17,15 @@ import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userData } from "../atom/atom";
+import { userData, viewTF } from "../atom/atom";
 import Comments from "./Comment";
 import "./PostDetail.css";
 function PostDetail() {
+  const [viewTFstate, setViewTF] = useRecoilState(viewTF);
   const { postId } = useParams(); // URL에서 postId 파라미터를 가져옴
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState(null);
   const [userDataState, setUserData] = useRecoilState(userData);
 
@@ -37,15 +39,12 @@ function PostDetail() {
         }
       );
       setPost(req.data);
-      console.log("#__req.data", req.data);
     } catch (error) {
-      console.error("게시물을 불러오는 중 에러 발생:", error);
+      console.error(error);
     }
   };
 
   const deletePost = async () => {
-    console.log("#__dd", `${process.env.REACT_APP_LOCAL_PORT}/post/${postId}`);
-
     try {
       await axios.delete(`${process.env.REACT_APP_LOCAL_PORT}/post/${postId}`, {
         withCredentials: true,
@@ -59,7 +58,7 @@ function PostDetail() {
       });
       navigate("/board");
     } catch (error) {
-      console.error("게시물 삭제 중 에러 발생: ", error);
+      console.error(error);
       toast({
         title: "에러 발생",
         description: "게시글 삭제 중 오류가 발생했습니다.",
@@ -83,7 +82,7 @@ function PostDetail() {
       );
       setComments(req.data);
     } catch (error) {
-      console.error("게시물을 불러오는 중 에러 발생:", error);
+      console.error(error);
     }
   };
 
@@ -100,7 +99,7 @@ function PostDetail() {
 
       setLikeCount(response.data.likeCount);
     } catch (error) {
-      console.log("🚀__좋아요갯수가져오기고장", error);
+      console.error(error);
     }
   };
 
@@ -119,7 +118,7 @@ function PostDetail() {
       setIsFilled(!isFilled);
       setLikeCount(response.data.likeCount);
     } catch (error) {
-      console.log("🚀__좋아요업데이트_error", error);
+      console.error(error);
     }
     setTimeout(() => setPop(false), 400);
   };
@@ -135,7 +134,7 @@ function PostDetail() {
 
       setIsFilled(response.data.isLiked);
     } catch (error) {
-      console.error("Error checking if post is liked:", error);
+      console.error(error);
     }
   };
 
@@ -156,11 +155,18 @@ function PostDetail() {
       );
 
       if (response.status === 200) {
-        alert("팔로우 성공!");
+        // alert("팔로우 성공!");
+        toast({
+          title: "팔로우 완",
+          description: "팔로우 완",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
         checkFollowStatus();
       }
     } catch (error) {
-      console.log("🚀__followButton_error", error);
+      console.error(error);
     }
   };
   const unFollowButton = async () => {
@@ -180,11 +186,17 @@ function PostDetail() {
       );
 
       if (response.status === 200) {
-        alert("언팔로우 성공!");
+        toast({
+          title: "언팔 완",
+          description: "언팔 완",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
         checkFollowStatus(); // 팔로우 상태를 다시 확인합니다.
       }
     } catch (error) {
-      console.log("🚀__unFollowButton_error", error);
+      console.error(error);
     }
   };
 
@@ -205,12 +217,11 @@ function PostDetail() {
         if (response.data.following) {
           setFollowChecker(response.data.following);
         } else {
-          console.log("팔로우 하지 않은 상태입니다.");
           setFollowChecker(false);
         }
       }
     } catch (error) {
-      console.log("팔로우 상태 확인 에러ㅋㅋㅋ:", error);
+      console.error(error);
     }
   };
   useEffect(() => {
@@ -224,145 +235,164 @@ function PostDetail() {
     fetchComments();
     fetchLikeCount();
     checkIfLiked();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   }, [postId]);
-  if (!post) {
-    return <Box fontFamily={"Pretendard"}>로딩 중...</Box>;
+
+  if (isLoading) {
+    return (
+      <Box
+        w={"100%"}
+        h={"50vh"}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        style={{ background: "#44008b" }}
+      >
+        <Text fontFamily={"Pretendard"} fontSize={"8xl"}>
+          🧘‍♂️💫🧘‍♀️
+        </Text>
+      </Box>
+    );
   }
 
   return (
-    <div style={{ background: "rgb(248 247 243)" }}>
-      <Flex position="relative">
-        <Image
-          src={"../777.jpg"}
-          style={{
-            objectFit: "cover",
-            objectPosition: "center",
-            width: "100%",
-            height: "15vw",
-            minHeight: "300px",
-          }}
-        />
-        <Text
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "20%",
-            transform: "translate(-50%, -50%)",
-          }}
-          fontSize="xl"
-          color="white"
-          fontFamily={"Pretendard"}
-        >
-          Community
-        </Text>
-      </Flex>
-      <Container
-        maxW="container.md"
-        centerContent
-        p={5}
-        style={{ background: "rgba(248, 247, 243, 0.3)" }}
-      >
-        <Box p={5} shadow="md" borderWidth="1px" w="full" mt={"48px"}>
-          <Flex direction="column" align="center">
-            {post.img && (
-              <Image
-                src={`${process.env.REACT_APP_LOCAL_PORT}/uploads/${post.img}`}
-                alt="description"
-              />
-            )}
-            <Heading mb={4} mt={4} fontFamily={"Pretendard"}>
-              {post.title}
-            </Heading>
-            <Text mb={4} mt={4} fontFamily={"Pretendard"}>
-              {post.content}
-            </Text>
-            <Divider my={4} />
-            <Flex justifyContent={"space-between"} w={"100%"}>
-              <div onClick={toggleHeart}>
-                {isFilled ? (
-                  <AiFillHeart
-                    size="24px"
-                    color="red"
-                    className={pop ? "pop-animation" : ""}
-                  />
-                ) : (
-                  <AiOutlineHeart
-                    size="24px"
-                    color="red"
-                    className={pop ? "pop-animation" : ""}
-                  />
-                )}
-                <Text fontSize={"xs"} fontFamily={"Pretendard"}>
-                  좋아요 : {likeCount}
-                </Text>
-              </div>
-              <VStack alignItems={"flex-end"}>
-                <Text fontWeight="400" fontFamily={"Pretendard"}>
-                  작성자: {post.User.userName}
-                </Text>
-                <Text
-                  fontWeight="300"
-                  color="gray.500"
-                  fontFamily={"Pretendard"}
-                >
-                  작성시간: {moment(post.createdAt).format("YY/MM/DD")}
-                </Text>
-                {userDataState?.id !== post?.UserId && (
-                  <Button
-                    bg={!followChecker ? "rgb(6,57,55)" : "red"}
-                    color="white"
-                    _hover={{
-                      bg: !followChecker ? "rgb(6,57,55)" : "red",
-                      textDecoration: "none",
-                    }}
-                    onClick={!followChecker ? followButton : unFollowButton}
-                    size="sm"
-                    mt={"24px"}
-                  >
-                    {followChecker === true ? (
-                      <Text fontFamily={"Pretendard"}>언팔하기</Text>
-                    ) : (
-                      <Text fontFamily={"Pretendard"}>팔로우</Text>
-                    )}
-                  </Button>
-                )}
-              </VStack>
-            </Flex>
-            <Spacer />
-          </Flex>
-        </Box>
-
-        <Flex width="full" justify="space-between" mb={"48px"}>
-          <Button
-            isDisabled={userDataState.id === post.UserId ? false : true}
-            onClick={editPost}
-            bg="rgb(6,57,55)"
+    viewTFstate && (
+      <div style={{ background: "rgb(248 247 243)" }}>
+        <Flex position="relative">
+          <Image
+            src={"../777.jpg"}
+            style={{
+              objectFit: "cover",
+              objectPosition: "center",
+              width: "100%",
+              height: "15vw",
+              minHeight: "300px",
+            }}
+          />
+          <Text
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "20%",
+              transform: "translate(-50%, -50%)",
+            }}
+            fontSize="xl"
             color="white"
-            _hover={{ bg: "rgb(6,57,55)", textDecoration: "none" }}
-            size="sm"
-            mt={"24px"}
+            fontFamily={"Pretendard"}
           >
-            <Text fontFamily={"Pretendard"}>수정</Text>
-          </Button>
-          <Button
-            bg="rgb(6,57,55)"
-            color="white"
-            _hover={{ bg: "rgb(6,57,55)", textDecoration: "none" }}
-            isDisabled={userDataState.id === post.UserId ? false : true}
-            onClick={deletePost}
-            size="sm"
-            mt={"24px"}
-          >
-            <Text fontFamily={"Pretendard"}>삭제</Text>
-          </Button>
+            Community
+          </Text>
         </Flex>
-        <Comments
-          post={post}
-          comments={comments}
-          refreshComments={fetchComments}
-        />
-      </Container>
-    </div>
+        <Container
+          maxW="container.md"
+          centerContent
+          p={5}
+          style={{ background: "rgba(248, 247, 243, 0.3)" }}
+        >
+          <Box p={5} shadow="md" borderWidth="1px" w="full" mt={"48px"}>
+            <Flex direction="column" align="center">
+              {post.img && (
+                <Image
+                  src={`${process.env.REACT_APP_LOCAL_PORT}/uploads/${post.img}`}
+                  alt="description"
+                />
+              )}
+              <Heading mb={4} mt={4} fontFamily={"Pretendard"}>
+                {post.title}
+              </Heading>
+              <Text mb={4} mt={4} fontFamily={"Pretendard"}>
+                {post.content}
+              </Text>
+              <Divider my={4} />
+              <Flex justifyContent={"space-between"} w={"100%"}>
+                <div onClick={toggleHeart}>
+                  {isFilled ? (
+                    <AiFillHeart
+                      size="24px"
+                      color="red"
+                      className={pop ? "pop-animation" : ""}
+                    />
+                  ) : (
+                    <AiOutlineHeart
+                      size="24px"
+                      color="red"
+                      className={pop ? "pop-animation" : ""}
+                    />
+                  )}
+                  <Text fontSize={"xs"} fontFamily={"Pretendard"}>
+                    좋아요 : {likeCount}
+                  </Text>
+                </div>
+                <VStack alignItems={"flex-end"}>
+                  <Text fontWeight="400" fontFamily={"Pretendard"}>
+                    작성자: {post.User.userName}
+                  </Text>
+                  <Text
+                    fontWeight="300"
+                    color="gray.500"
+                    fontFamily={"Pretendard"}
+                  >
+                    작성시간: {moment(post.createdAt).format("YY/MM/DD")}
+                  </Text>
+                  {userDataState?.id !== post?.UserId && (
+                    <Button
+                      bg={!followChecker ? "rgb(6,57,55)" : "red"}
+                      color="white"
+                      _hover={{
+                        bg: !followChecker ? "rgb(6,57,55)" : "red",
+                        textDecoration: "none",
+                      }}
+                      onClick={!followChecker ? followButton : unFollowButton}
+                      size="sm"
+                      mt={"24px"}
+                    >
+                      {followChecker === true ? (
+                        <Text fontFamily={"Pretendard"}>언팔하기</Text>
+                      ) : (
+                        <Text fontFamily={"Pretendard"}>팔로우</Text>
+                      )}
+                    </Button>
+                  )}
+                </VStack>
+              </Flex>
+              <Spacer />
+            </Flex>
+          </Box>
+
+          <Flex width="full" justify="space-between" mb={"48px"}>
+            <Button
+              isDisabled={userDataState.id === post.UserId ? false : true}
+              onClick={editPost}
+              bg="rgb(6,57,55)"
+              color="white"
+              _hover={{ bg: "rgb(6,57,55)", textDecoration: "none" }}
+              size="sm"
+              mt={"24px"}
+            >
+              <Text fontFamily={"Pretendard"}>수정</Text>
+            </Button>
+            <Button
+              bg="rgb(6,57,55)"
+              color="white"
+              _hover={{ bg: "rgb(6,57,55)", textDecoration: "none" }}
+              isDisabled={userDataState.id === post.UserId ? false : true}
+              onClick={deletePost}
+              size="sm"
+              mt={"24px"}
+            >
+              <Text fontFamily={"Pretendard"}>삭제</Text>
+            </Button>
+          </Flex>
+          <Comments
+            post={post}
+            comments={comments}
+            refreshComments={fetchComments}
+          />
+        </Container>
+      </div>
+    )
   );
 }
 

@@ -14,9 +14,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userData } from "../atom/atom";
+import { userData, viewTF } from "../atom/atom";
+
 function MyPage() {
   const [userDataState, setUserData] = useRecoilState(userData);
+  const [viewTFstate, setViewTF] = useRecoilState(viewTF);
   const [myPost, setMyPost] = useState(null);
   const navigate = useNavigate();
 
@@ -31,7 +33,7 @@ function MyPage() {
       );
       setMyPost(response.data);
     } catch (error) {
-      console.log("🚀__mypage", error);
+      console.error(error);
     }
   };
 
@@ -57,7 +59,7 @@ function MyPage() {
 
       return { followers, following };
     } catch (error) {
-      console.error("Error fetching followers and following:", error);
+      console.error(error);
     }
   };
 
@@ -116,114 +118,124 @@ function MyPage() {
   };
 
   return (
-    <div style={{ background: "rgb(248 247 243)" }}>
-      <Flex position="relative">
-        <Image
-          src={"../4190917.jpg"}
-          style={{
-            objectFit: "cover",
-            objectPosition: "center",
-            width: "100%",
-            height: "15vw",
-            minHeight: "300px",
-          }}
-        />
-        <Text
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "20%",
-            transform: "translate(-50%, -50%)",
-          }}
-          fontSize="xl"
-          color="white"
-          fontFamily={"Pretendard"}
-        >
-          MyPage
-        </Text>
-      </Flex>
-      <Flex
-        w={"100%"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        direction={"column"}
-      >
-        <Flex
-          direction="row"
-          mt="5%"
-          justifyContent={"space-between"}
-          w={"50%"}
-        >
-          <Flex>
-            <Text fontFamily={"Pretendard"} fontWeight={300}>
-              안녕하세요
-            </Text>
-            &nbsp;&nbsp;
-            <Text fontFamily={"Pretendard"} fontWeight={400}>
-              {userDataState?.userName}
-            </Text>
-            &nbsp;
-            <Text fontFamily={"Pretendard"} fontWeight={300}>
-              님
-            </Text>
-          </Flex>
-          <Flex>
-            <Accordion allowToggle>
-              <AccordionItem>
-                <AccordionButton>
-                  <Text fontFamily={"Pretendard"} fontWeight={300}>
-                    팔로우&nbsp;&nbsp;{followersState.length}
-                  </Text>
-                  <AccordionIcon />
-                </AccordionButton>
-                <AccordionPanel pb={4}>
-                  {followersState &&
-                    followersState?.map((item) => {
-                      return (
-                        <Text fontFamily={"Pretendard"} fontWeight={300} mb={2}>
-                          {item.userName}
-                        </Text>
-                      );
-                    })}
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <Accordion allowToggle>
-              <AccordionItem>
-                <AccordionButton>
-                  <Text fontFamily={"Pretendard"} fontWeight={300}>
-                    팔로잉&nbsp;&nbsp;{followingState.length}
-                  </Text>
-                  <AccordionIcon />
-                </AccordionButton>
-                <AccordionPanel pb={4}>
-                  {followingState &&
-                    followingState?.map((item) => {
-                      return (
-                        <Text fontFamily={"Pretendard"} fontWeight={300} mb={2}>
-                          {item.userName}
-                        </Text>
-                      );
-                    })}
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>
-          </Flex>
+    viewTFstate && (
+      <div style={{ background: "rgb(248 247 243)" }}>
+        <Flex position="relative">
+          <Image
+            src={"../4190917.jpg"}
+            style={{
+              objectFit: "cover",
+              objectPosition: "center",
+              width: "100%",
+              height: "15vw",
+              minHeight: "300px",
+            }}
+          />
+          <Text
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "20%",
+              transform: "translate(-50%, -50%)",
+            }}
+            fontSize="xl"
+            color="white"
+            fontFamily={"Pretendard"}
+          >
+            MyPage
+          </Text>
         </Flex>
         <Flex
-          alignItems={"flex-start"}
-          w={"50%"}
-          mt={"5%"}
+          w={"100%"}
+          alignItems={"center"}
+          justifyContent={"center"}
           direction={"column"}
         >
-          <Text fontFamily={"Pretendard"} fontWeight={300} mb={5}>
-            내가 쓴 게시물
-          </Text>
-          {myPost && CardList(myPost)}
+          <Flex
+            direction="row"
+            mt="5%"
+            justifyContent={"space-between"}
+            w={"50%"}
+          >
+            <Flex>
+              <Text fontFamily={"Pretendard"} fontWeight={300}>
+                안녕하세요
+              </Text>
+              &nbsp;&nbsp;
+              <Text fontFamily={"Pretendard"} fontWeight={400}>
+                {userDataState?.userName}
+              </Text>
+              &nbsp;
+              <Text fontFamily={"Pretendard"} fontWeight={300}>
+                님
+              </Text>
+            </Flex>
+            <Flex>
+              <Accordion allowToggle>
+                <AccordionItem>
+                  <AccordionButton>
+                    <Text fontFamily={"Pretendard"} fontWeight={300}>
+                      팔로우&nbsp;&nbsp;{followersState.length}
+                    </Text>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={4}>
+                    {followersState &&
+                      followersState?.map((item) => {
+                        return (
+                          <Text
+                            fontFamily={"Pretendard"}
+                            fontWeight={300}
+                            mb={2}
+                          >
+                            {item.userName}
+                          </Text>
+                        );
+                      })}
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <Accordion allowToggle>
+                <AccordionItem>
+                  <AccordionButton>
+                    <Text fontFamily={"Pretendard"} fontWeight={300}>
+                      팔로잉&nbsp;&nbsp;{followingState.length}
+                    </Text>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={4}>
+                    {followingState &&
+                      followingState?.map((item) => {
+                        return (
+                          <Text
+                            fontFamily={"Pretendard"}
+                            fontWeight={300}
+                            mb={2}
+                          >
+                            {item.userName}
+                          </Text>
+                        );
+                      })}
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
+            </Flex>
+          </Flex>
+          <Flex
+            alignItems={"flex-start"}
+            w={"50%"}
+            mt={"5%"}
+            direction={"column"}
+          >
+            <Text fontFamily={"Pretendard"} fontWeight={300} mb={5}>
+              내가 쓴 게시물
+            </Text>
+            {myPost && CardList(myPost)}
+          </Flex>
         </Flex>
-      </Flex>
-    </div>
+      </div>
+    )
   );
 }
 

@@ -9,3 +9,8 @@ export const ChatCnt = atom({
   key: "ChatCnt_atom",
   default: false,
 });
+
+export const viewTF = atom({
+  key: "viewTF_atom",
+  default: false,
+});

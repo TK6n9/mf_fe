@@ -32,7 +32,7 @@ function PostEdit() {
       );
       setPost(response.data);
     } catch (error) {
-      console.error("Error fetching post: ", error);
+      console.error(error);
     }
   };
 
@@ -95,10 +95,10 @@ function PostEdit() {
       });
       navigate(`/board/${postId}`);
     } catch (error) {
-      console.error("Error updating post: ", error);
+      console.error(error);
       toast({
         title: "문제발생",
-        description: "문제 발생2",
+        description: "문제 발생",
         status: "error",
         duration: 5000,
         isClosable: true,

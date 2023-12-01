@@ -32,7 +32,7 @@ function CreateRoomForm() {
         }
       );
     } catch (error) {
-      console.error("Error creating room:", error);
+      console.error(error);
     }
   };
 
@@ -62,7 +62,6 @@ function CreateRoomForm() {
           </FormControl>
           <FormControl id="owner">
             <FormLabel fontFamily={"Pretendard"} fontWeight={400}>
-              {" "}
               방장 이름
             </FormLabel>
             <Input

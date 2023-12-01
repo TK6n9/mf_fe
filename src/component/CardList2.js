@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./CardList2.css";
 
 function CardList2() {
-  const [hover1, setHover1] = useState(true); // 초기 값을 true로 변경
+  const [hover1, setHover1] = useState(true);
   const [hover2, setHover2] = useState(false);
   const [hover3, setHover3] = useState(false);
   const [hover4, setHover4] = useState(false);
@@ -89,11 +89,6 @@ function CardList2() {
             >
               본능이 악이라면 이성은 천사인가?
             </text>
-            {/* <img
-              src="./orangArrowIcon.png"
-              alt=""
-              style={{ width: "60px", height: "60px" }}
-            ></img> */}
           </div>
         ) : (
           <text
@@ -161,11 +156,6 @@ function CardList2() {
             >
               부처를 만나면 부처를 죽이고 조사를 만나면 조사를 죽여라.
             </text>
-            {/* <img
-              src="./orangArrowIcon.png"
-              alt=""
-              style={{ width: "60px", height: "60px" }}
-            ></img> */}
           </div>
         ) : (
           <text
@@ -234,11 +224,6 @@ function CardList2() {
             >
               나 자신까지 속여 버릴 것인가?
             </text>
-            {/* <img
-              src="./orangArrowIcon.png"
-              alt=""
-              style={{ width: "60px", height: "60px" }}
-            ></img> */}
           </div>
         ) : (
           <text
@@ -306,11 +291,6 @@ function CardList2() {
             >
               우리는 창조자이면서 동시에 조력자가 되어야한다.
             </text>
-            {/* <img
-              src="./orangArrowIcon.png"
-              alt=""
-              style={{ width: "60px", height: "60px" }}
-            ></img> */}
           </div>
         ) : (
           <text
@@ -369,11 +349,6 @@ function CardList2() {
         >
           본능이 악이라면 이성은 천사인가?
         </text>
-        {/* <img
-          src="./orangArrowIcon.png"
-          alt=""
-          style={{ width: "60px", height: "60px", marginLeft: "50px" }}
-        ></img> */}
       </div>
       <div
         className="min-image-container2"
@@ -413,11 +388,6 @@ function CardList2() {
         >
           부처를 만나면 부처를 죽이고 조사를 만나면 조사를 죽여라.
         </text>
-        {/* <img
-          src="./orangArrowIcon.png"
-          alt=""
-          style={{ width: "60px", height: "60px", marginLeft: "50px" }}
-        ></img> */}
       </div>
       <div
         className="min-image-container3"
@@ -457,11 +427,6 @@ function CardList2() {
         >
           나 자신까지 속여 버릴 것인가?
         </text>
-        {/* <img
-          src="./orangArrowIcon.png"
-          alt=""
-          style={{ width: "60px", height: "60px", marginLeft: "50px" }}
-        ></img> */}
       </div>
 
       <div
@@ -502,11 +467,6 @@ function CardList2() {
         >
           우리는 창조자이면서 동시에 조력자가 되어야한다.
         </text>
-        {/* <img
-          src="./orangArrowIcon.png"
-          alt=""
-          style={{ width: "60px", height: "60px", marginLeft: "50px" }}
-        ></img> */}
       </div>
     </div>
   );

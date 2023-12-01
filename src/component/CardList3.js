@@ -10,9 +10,8 @@ const CardList3 = () => {
         <Flex>
           <Flex direction={"column"} w={"50%"}>
             <Text fontSize="xl" mb={"48px"} fontFamily={"Pretendard"}>
-              COG란 무엇인가요?
+              COG란 무엇인가요 ?
             </Text>
-
             <Text fontSize="sm" mb={"48px"} fontFamily={"Pretendard"}>
               중력의 중심과 톱니바퀴입니다.
               <br />
@@ -43,13 +42,6 @@ const CardList3 = () => {
               내일을 살게 만드는 힘을 만들어 내는 것입니다.
               <br />
               <br />
-              어제 길을 걷다가 할머니들끼리 공용체육시절을 이용하는 것을
-              보았습니다.
-              <br />
-              <br />
-              도란도란 이야기를 나누며 내일 또 보자 내일은 공원에 가자 약속을
-              하는 것<br />
-              아침을 반갑게 맞이하는 힘이 아닐까요
             </Text>
 
             <Text fontSize="xl" mb={"48px"} fontFamily={"Pretendard"}>

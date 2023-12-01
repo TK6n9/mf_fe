@@ -11,11 +11,13 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { default as React, useState } from "react";
 
 function MainModal() {
+  const toast = useToast();
   const { onClose } = useDisclosure();
   const [isSignup, setIsSignup] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -26,7 +28,13 @@ function MainModal() {
 
   const handleRegister = async () => {
     if (!userNameState || !passwordState) {
-      alert("모든 필드를 채워주세요.");
+      toast({
+        title: "모든 필드를 채워주세요.",
+        description: "모든 필드를 채워주세요.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
       return;
     }
 
@@ -39,19 +47,29 @@ function MainModal() {
         },
         { withCredentials: true }
       );
-      console.log("#__계정등록성공", req);
-
       if (req.status === 200) {
         setIsSignup(false);
         setIsLogin(true);
+        toast({
+          title: "계정등록 성공",
+          description: "계정등록 성공",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       }
     } catch (error) {
-      console.log("#__계정등록 고장남", error);
-      alert(error.response.data);
+      console.error(error);
+      toast({
+        title: "계정등록 고장",
+        description: "계정등록 고장",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
-  //여기서부터 프론트 로그인로직
   const [loginUserName, setLoginUserName] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -68,21 +86,33 @@ function MainModal() {
           withCredentials: true,
         }
       );
-      console.log("#__로그인성공", req);
+
       if (req.status === 200) {
         setIsModalOpen(false);
         window.location.reload();
+        toast({
+          title: "로그인 성공",
+          description: "로그인 성공",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       }
     } catch (error) {
-      console.log("#__로그인버튼고장남", error);
-      alert(error.response.data);
+      console.error(error);
+      toast({
+        title: "로그인 버튼 고장",
+        description: "로그인 버튼 고장",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
   return (
     <>
       <Modal isOpen={isModalOpen} onClose={onClose}>
         <ModalOverlay bg="blackAlpha.900" />
-
         <ModalContent
           borderRadius="0"
           border="0"
@@ -176,7 +206,7 @@ function MainModal() {
                     type="email"
                     placeholder="본인 닉네임 입력"
                     onChange={(e) => setLoginUserName(e.target.value)}
-                    borderRadius="0" // removes border radius
+                    borderRadius="0"
                     border="1px solid"
                     borderColor="rgb(6, 57, 55)"
                     boxShadow={"none"}
@@ -199,7 +229,7 @@ function MainModal() {
                     type="password"
                     placeholder="비밀번호를 입력하세요"
                     onChange={(e) => setLoginPassword(e.target.value)}
-                    borderRadius="0" // removes border radius
+                    borderRadius="0"
                     border="1px solid"
                     borderColor="rgb(6, 57, 55)"
                     boxShadow={"none"}
@@ -255,7 +285,8 @@ function MainModal() {
                   fontSize={"12px"}
                   fontWeight={300}
                 >
-                  잔 버그 있음,, 아직 추가 개발 중 할 거 많음...반응형고려x 예정
+                  비밀번호 해쉬화됨 걱정 ㄴㄴ
+                  <br /> 잔 버그 있음,, 아직 추가 개발 중 ...반응형고려x 예정
                 </Text>
               </ModalBody>
               <ModalFooter>

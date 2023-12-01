@@ -18,32 +18,6 @@ function ChatRoom({ roomId, roomDetails }) {
 
   const toast = useToast();
   const socket = useSocket();
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_LOCAL_PORT}/server/room/${roomId}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then((response) => {
-  //       setChats(response.data.chats);
-  //     })
-  //     .catch((error) =>
-  //       toast({
-  //         title: "Error loading chats",
-  //         description: error.toString(),
-  //         status: "error",
-  //         duration: 5000,
-  //         isClosable: true,
-  //       })
-  //     );
-  //   const handleNewChat = (newChat) => {
-  //     if (newChat.roomId === roomId) {
-  //       setChats((prevChats) => [...prevChats, newChat]);
-  //     }
-  //   };
-  //   socket.on("testChat", handleNewChat);
-  //   return () => socket.off("testChat", handleNewChat);
-  // }, [roomId, socket]);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_LOCAL_PORT}/server/room/${roomId}`, {
@@ -105,11 +79,11 @@ function ChatRoom({ roomId, roomDetails }) {
       maxHeight="400px"
     >
       <VStack spacing={4}>
-        <Text fontSize="2xl" fontFamily={"Pretendard"}>
+        <Text fontSize="l" fontFamily={"Pretendard"}>
           {roomDetails.title} Chat Room
         </Text>
-        <Text fontSize="xl" fontFamily={"Pretendard"}>
-          빵장 : {roomDetails.owner}
+        <Text fontSize="sm" fontFamily={"Pretendard"}>
+          방장 : {roomDetails.owner}
         </Text>
 
         <VStack spacing={3} width="100%" alignItems="flex-start">
@@ -122,7 +96,7 @@ function ChatRoom({ roomId, roomDetails }) {
         </VStack>
         <HStack width="100%">
           <Input
-            placeholder="뻐구기 날리기..."
+            placeholder="채팅 보내기..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             flex={1}

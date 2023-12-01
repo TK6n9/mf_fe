@@ -5,25 +5,23 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import { useRecoilState } from "recoil";
-import { userData } from "../atom/atom";
+import { userData, viewTF } from "../atom/atom";
 import "./Navbar.css";
 const Navbar = () => {
   const navigate = useNavigate();
 
   const [userDataState, setUserData] = useRecoilState(userData);
+  const [viewTFstate, setViewTF] = useRecoilState(viewTF);
 
   async function fetchData() {
     try {
       const response = await axios.get(`${process.env.REACT_APP_LOCAL_PORT}/`, {
         withCredentials: true,
       });
-      console.log("🚀__setUserData", response.data);
-
       setUserData(response.data);
-      // 다른 처리 로직...
+      setViewTF(true);
     } catch (error) {
-      console.error("Error fetching data: ", error);
-      // 에러 처리 로직...
+      console.error(error);
     }
   }
   useEffect(() => {
@@ -63,12 +61,10 @@ const Navbar = () => {
           withCredentials: true,
         }
       );
-
       navigate("/");
       window.location.reload();
-      console.log("#__handleLogout", response);
     } catch (error) {
-      console.log("#__handleLogout_error", error);
+      console.error(error);
     }
   };
   useEffect(() => {
@@ -76,81 +72,82 @@ const Navbar = () => {
   }, []);
 
   return (
-    <>
-      <Flex
-        w={"100%"}
-        bg="RGB(24 56 55)"
-        height={"24px"}
-        align={"center"}
-        justify={"center"}
-        as={"nav"}
-        position="sticky"
-        top="0"
-        zIndex="1"
-      >
-        <CSSTransition
-          classNames={{
-            enter: "slide-enter",
-            enterActive: "slide-enter-active",
-            exit: "slide-exit",
-            exitActive: "slide-exit-active",
-          }}
-          in={showText}
-          timeout={2000}
-          unmountOnExit
+    viewTFstate && (
+      <>
+        <Flex
+          w={"100%"}
+          bg="RGB(24 56 55)"
+          height={"24px"}
+          align={"center"}
+          justify={"center"}
+          as={"nav"}
+          position="sticky"
+          top="0"
+          zIndex="1"
         >
-          <Text fontSize="xs" color={"white"} fontFamily={"Pretendard"}>
-            {texts[index]}
-          </Text>
-        </CSSTransition>
-      </Flex>
-      <Flex
-        as={"nav"}
-        align={"center"}
-        height={"70px"}
-        justify="space-between"
-        wrap="wrap"
-        bg="white"
-        color="RGB(24 56 66)"
-        position="sticky"
-        top="0"
-        zIndex="1"
-        boxShadow="0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
-      >
-        <Flex align="center" ml={"24px"}>
-          <Link href="/">
-            <Text fontSize="xl" fontFamily={"Pretendard"}>
-              ⚙️ COG ⚙️
+          <CSSTransition
+            classNames={{
+              enter: "slide-enter",
+              enterActive: "slide-enter-active",
+              exit: "slide-exit",
+              exitActive: "slide-exit-active",
+            }}
+            in={showText}
+            timeout={2000}
+            unmountOnExit
+          >
+            <Text fontSize="xs" color={"white"} fontFamily={"Pretendard"}>
+              {texts[index]}
             </Text>
-          </Link>
+          </CSSTransition>
         </Flex>
-
-        <Flex align="center">
-          <Link href="/board" mr={"48px"}>
-            <Text fontFamily={"Pretendard"}>Community</Text>
-          </Link>
-          {userDataState === null || userDataState === undefined ? (
-            ""
-          ) : (
-            <>
-              <Link href="/mypage" mr={"48px"}>
-                <Flex>
-                  <Text fontFamily={"Pretendard"}>{"Welcome 🙋🏻‍♀️"}</Text>
-                  &nbsp;&nbsp;
-                  <Text fontFamily={"Pretendard"}>
-                    {userDataState.userName}
-                  </Text>
-                </Flex>
-              </Link>
-              <Link onClick={handleLogout} style={{ marginRight: "48px" }}>
-                <Text fontFamily={"Pretendard"}>Logout</Text>
-              </Link>
-            </>
-          )}
+        <Flex
+          as={"nav"}
+          align={"center"}
+          height={"70px"}
+          justify="space-between"
+          wrap="wrap"
+          bg="white"
+          color="RGB(24 56 66)"
+          position="sticky"
+          top="0"
+          zIndex="1"
+          boxShadow="0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+        >
+          <Flex align="center" ml={"24px"}>
+            <Link href="/">
+              <Text fontSize="xl" fontFamily={"Pretendard"}>
+                ⚙️ COG ⚙️
+              </Text>
+            </Link>
+          </Flex>
+          <Flex align="center">
+            <Link href="/board" mr={"48px"}>
+              <Text fontFamily={"Pretendard"}>Community</Text>
+            </Link>
+            {userDataState === null || userDataState === undefined ? (
+              ""
+            ) : (
+              <>
+                <Link href="/mypage" mr={"48px"}>
+                  <Flex>
+                    <Text fontFamily={"Pretendard"}>{"Welcome 🙋🏻‍♀️"}</Text>
+                    &nbsp;&nbsp;
+                    <Text fontFamily={"Pretendard"}>
+                      {userDataState.userName}
+                    </Text>
+                  </Flex>
+                </Link>
+                <Link onClick={handleLogout} style={{ marginRight: "48px" }}>
+                  <Text fontFamily={"Pretendard"}>Logout</Text>
+                </Link>
+              </>
+            )}
+          </Flex>
         </Flex>
-      </Flex>
-      <Divider />
-    </>
+        <Divider />
+      </>
+    )
   );
 };
 

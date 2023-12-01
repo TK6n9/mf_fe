@@ -15,7 +15,6 @@ export const SocketProvider = ({ children }) => {
     if (socket) {
       socket.disconnect();
     }
-
     const newSocket = io(`${process.env.REACT_APP_LOCAL_PORT}`, {
       path: "/socket.io", // if your server serves Socket.IO on a different path
       transports: ["websocket", "polling"], // specify transports
@@ -24,21 +23,13 @@ export const SocketProvider = ({ children }) => {
       reconnectionDelay: 3000,
       // other relevant options
     });
-
     // 연결 및 에러 이벤트 핸들러 설정
-    newSocket.on("connect", () => {
-      console.log("Socket Connected");
-    });
-    newSocket.on("disconnect", () => {
-      console.log("Socket Disconnected");
-    });
+    newSocket.on("connect", () => {});
+    newSocket.on("disconnect", () => {});
     newSocket.on("connect_error", (error) => {
-      console.error("Connection Error:", error);
+      console.error(error);
     });
-
     setSocket(newSocket);
-    console.log("🚀__newSocket", newSocket);
-
     // 컴포넌트 언마운트 시 소켓을 닫습니다.
     return () => newSocket.disconnect();
   }, []);
