@@ -15,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { default as React, useState } from "react";
+import AnimationComponent from "./AnimationComponent";
+import AnimationComponent2 from "./AnimationComponent2";
 
 function MainModal() {
   const toast = useToast();
@@ -109,6 +111,7 @@ function MainModal() {
       });
     }
   };
+
   return (
     <>
       <Modal isOpen={isModalOpen} onClose={onClose}>
@@ -271,23 +274,30 @@ function MainModal() {
           ) : (
             <>
               <ModalHeader>
-                <Text fontFamily={"Pretendard"}>🧘‍♀️ COG 수련원 알림 🧘‍♂️</Text>
+                <Text fontFamily={"Pretendard"}>🧘‍♀️ COG 수련원 🧘‍♂️</Text>
               </ModalHeader>
+
               <ModalBody>
-                <Text fontFamily={"Pretendard"}>
-                  회원인 경우만 이용이 가능합니다.
-                </Text>
-                <br />
-                <Text fontFamily={"Pretendard"}>회원가입을 하시겠습니까 ?</Text>
-                <br />
+                <AnimationComponent2 />
                 <Text
+                  fontFamily={"Pretendard"}
+                  fontSize={"3xl"}
+                  textAlign={"center"}
+                >
+                  🚧👷🏻‍♀️공사 중👷🏻‍♂️🚧
+                </Text>
+                <AnimationComponent />
+                <br />
+                {/* <Text fontFamily={"Pretendard"}>회원가입을 하시겠습니까 ?</Text> */}
+                <br />
+                {/* <Text
                   fontFamily={"Pretendard"}
                   fontSize={"12px"}
                   fontWeight={300}
                 >
                   비밀번호 해쉬화됨 걱정 ㄴㄴ
                   <br /> 잔 버그 있음,, 아직 추가 개발 중 ...반응형고려x 예정
-                </Text>
+                </Text> */}
               </ModalBody>
               <ModalFooter>
                 <Button
@@ -300,6 +310,7 @@ function MainModal() {
                   mr={3}
                   onClick={() => setIsSignup(true)}
                   _hover={{ bg: "rgb(6,57,55)", textDecoration: "none" }}
+                  isDisabled={true}
                 >
                   <Text fontFamily={"Pretendard"}>회원가입</Text>
                 </Button>
@@ -311,6 +322,7 @@ function MainModal() {
                     setIsSignup(false);
                     setIsLogin(true);
                   }}
+                  isDisabled={true}
                 >
                   <Text fontFamily={"Pretendard"}>이미 회원입니다.</Text>
                 </Button>
